@@ -1,0 +1,85 @@
+Kevin Bacon: 102
+Tom Cruise: 129
+Kevin Bacon's neighbors
+{('112384', '200'), ('112384', '102'), ('112384', '641'), ('104257', '102'), ('104257', '193'), ('104257', '197'), ('112384', '158'), ('104257', '129')}
+
+200's neighbors
+{('112384', '102'), ('112384', '158'), ('112384', '200'), ('112384', '641')}
+-> we see 102 again right away.  so we have cycles in our graph, which should be fine cause we've visited it already
+
+
+restarting pdb seems to reshuffle
+
+
+RUN
+===
+102
+200's neighbors
+{('112384', '200'), ('112384', '158'), ('112384', '641'), ('112384', '102')}
+158's neighbors
+{('112384', '200'), ('109830', '641'), ('112384', '102'), ('109830', '398'), ('112384', '158'), ('112384', '641'), ('109830', '705'), ('109830', '158')}
+
+
+Problem: I was returning [] (empty list), but was checking for None.  None and [] are not the same.
+
+
+I don't think this is working for more than one degree of separation
+Kevin Bacon -> Tom CRuise is 1
+Kevin BAcon -> Bill Paxton is 1
+But not finding Kevin Bacon -> Bill Paxton
+
+
+------
+
+
+Bug: should be 1 degree, not 2 for shortest
+
+C:\repos\CS50\proj0-degrees>python degrees.py large
+Loading data...
+Data loaded.
+Name: Kevin Bacon
+Which 'Kevin Bacon'?
+ID: 9323132, Name: Kevin Bacon, Birth:
+ID: 102, Name: Kevin Bacon, Birth: 1958
+Intended Person ID: 102
+Name: Emma Watson
+2 degrees of separation.
+1: Kevin Bacon and Emma Watson starred in The Perks of Being a Wallflower
+2: Emma Watson and Logan Lerman starred in My One and Only
+
+out: 
+[('4287320', '914612'), ('112384', '158')]
+2 degrees of separation.
+1: Kevin Bacon and Emma Watson starred in The Circle
+2: Emma Watson and Tom Hanks starred in Apollo 13
+
+
+102,"Kevin Bacon",1958 // source
+914612,"Emma Watson",1990 // target
+
+112384,"Apollo 13",1995
+1659337,"The Perks of Being a Wallflower",2012
+
+158,112384
+200,112384
+102,112384
+641,112384
+
+503567,1659337
+914612,1659337
+3009232,1659337
+748620,1659337
+
+dumped visited:
+914612
+914612
+158
+('4287320', '914612')  
+
+158
+158
+102
+('112384', '158')
+
+
+// why didn't algo stop when it found ('112384', '158')????
